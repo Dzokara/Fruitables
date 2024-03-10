@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -45,5 +46,14 @@ class Rating extends Model
             'published_at'=>now()
         ]);
     }
+    public function ratingsLastWeek()
+    {
+        $weekAgo = Carbon::now()->subWeek();
+        $count = Rating::where('created_at', '>=', $weekAgo)->count();
 
+        return $count;
+    }
+    public function deleteRatingForFruit($id){
+        return Rating::where('id_fruits',$id)->delete();
+    }
 }

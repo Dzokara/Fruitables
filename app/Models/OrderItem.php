@@ -41,4 +41,8 @@ class OrderItem extends Model
 
     }
 
+    public function setNullForFruit($id){
+        return OrderItem::where('id_fruits', $id)->update(['id_fruits' => null]);
+    }
+
 }

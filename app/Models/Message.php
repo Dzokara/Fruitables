@@ -27,5 +27,9 @@ class Message extends Model
             'message'=>$message
         ]);
     }
+    public function getLatestMessages()
+    {
+        return Message::orderBy('created_at', 'desc')->take(3)->get();
+    }
 
 }

@@ -106,11 +106,16 @@ class Fruit extends Model
         } elseif ($sort === 'rat') {
             $query->leftJoin('rating', 'fruits.id', '=', 'rating.id_fruits')
                 ->select('fruits.*', \DB::raw('COALESCE(AVG(rating.value), 0) as avg_rating'))
-                ->groupBy('fruits.id', 'fruits.name','fruits.id_category','fruits.id_img','fruits.created_at','fruits.updated_at') // Include 'fruits.name' in the GROUP BY clause
+                ->groupBy('fruits.id', 'fruits.name','fruits.id_category','fruits.id_img','fruits.created_at','fruits.updated_at')
                 ->orderByDesc('avg_rating');
         }
 
         return $query->paginate(8, ['fruits.*'], 'page', $page);
+    }
+
+    public function deleteFruit($id)
+    {
+        return Fruit::where('id', $id)->delete();
     }
 
 

@@ -92,5 +92,8 @@ class Cart extends Model
         return true;
 
     }
+    public function deleteProductFromCart($id){
+        return Cart::where('id_fruits',$id)->delete();
+    }
 
 }

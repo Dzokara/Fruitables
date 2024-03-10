@@ -14,4 +14,7 @@ class Price extends Model
     {
         return $this->belongsTo(Fruit::class, 'id_fruits');
     }
+    public function setNullForPrices($id){
+        return Price::where('id_fruits', $id)->update(['id_fruits' => null]);
+    }
 }

@@ -14,8 +14,17 @@ class AdminController extends Controller
 {
     public function index(){
         $model = new Fruit();
-        $data['fruits'] = $model->getAll();
-        return view('pages.admin.fruits',$data);
+        $model1 = new Order();
+        $model2 = new Rating();
+        $model3 = new User();
+        $model4 = new Message();
+        $data['fruits'] = $model->getAll()->count();
+        $data['orders'] = $model1->getAll()->count();
+        $data['users'] = $model3->getAll()->count();
+        $data['profit'] = $model1->profitLastWeek();
+        $data['recentReviews'] = $model2->ratingsLastWeek();
+        $data['messages'] = $model4->getLatestMessages();
+        return view('pages.admin.admin',$data);
     }
 
     public function fruits(){
@@ -58,4 +67,5 @@ class AdminController extends Controller
         $data['ratings'] = $model->getAll(true,6,$page);
         return view('pages.admin.ratings',$data);
     }
+
 }

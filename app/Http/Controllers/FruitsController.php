@@ -2,10 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Cart;
 use App\Models\Category;
 use App\Models\Fruit;
+use App\Models\OrderItem;
+use App\Models\Price;
 use App\Models\Rating;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Response;
 
 class FruitsController extends Controller
@@ -54,6 +58,22 @@ class FruitsController extends Controller
     public function deleteFruit(Request $request){
         $id = $request->input('fruit_id');
         $model = new Fruit();
-        $delete = $model->deleteFruit($id);
+        $model1 = new Price();
+        $model2= new Rating();
+        $model3= new Cart();
+        $model4=new OrderItem();
+        try{
+            $delete = $model1->setNullForPrices($id);
+            $delete2= $model2->deleteRatingForFruit($id);
+            $delete3= $model3->deleteProductFromCart($id);
+            $delete4=$model4->setNullForFruit($id);
+            $delete1 = $model->deleteFruit($id);
+            return redirect()->back();
+        }
+        catch (\Exception $e){
+            Log::error($e);
+            return redirect()->back();
+        }
+
     }
 }

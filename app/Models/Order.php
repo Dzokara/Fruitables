@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -51,6 +52,13 @@ class Order extends Model
         }
         return null;
 
+    }
+    public  function profitLastWeek()
+    {
+        $weekAgo = Carbon::now()->subWeek();
+        $total = Order::where('created_at', '>=', $weekAgo)->sum('total');
+
+        return $total;
     }
 
 }

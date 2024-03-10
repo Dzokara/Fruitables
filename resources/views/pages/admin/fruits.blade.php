@@ -36,7 +36,7 @@
                                     @endif
                                 </td>
                                 <td class="col-4 align-middle">
-                                    <button class="btn btn-sm btn-primary px-3 py-1" data-id="{{$row->id}}" style="font-size: 23px;">Edit</button>
+                                    <button class="btn btn-sm btn-primary px-3 py-1 updateModal" data-id="{{$row->id}}" style="font-size: 23px;">Edit</button>
                                     <button class="btn btn-sm btn-danger deleteModal"  data-id="{{$row->id}}" style="font-size: 23px;">Delete</button>
                                 </td>
                             </tr>
@@ -73,6 +73,25 @@
             </div>
         </div>
     </div>
+    <div class="modal fade" id="updateModal" tabindex="-1" role="dialog" aria-labelledby="updateModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="updateModalLabel">Edit Fruit</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" id="updateModalContent">
+                    <!-- Your update form will be loaded here -->
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
     <!-- /.container-fluid -->
 
     </div>
@@ -81,4 +100,5 @@
 
 @section('scripts')
     <script src="{{asset('assets/js/deleteModal.js')}}"></script>
+    <script src="{{asset('assets/js/updateModal.js')}}"></script>
 @endsection
