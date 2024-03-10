@@ -33,6 +33,7 @@ Route::middleware(\App\Http\Middleware\AdminMiddleware::class)->group(function (
     Route::get('/admin/messages',[\App\Http\Controllers\AdminController::class,'messages'])->name('admin.messages');
     Route::get('/admin/users',[\App\Http\Controllers\AdminController::class,'users'])->name('admin.users');
     Route::delete('/admin/fruits',[\App\Http\Controllers\FruitsController::class,'deleteFruit'])->name('admin.fruits.delete');
+    Route::put('/admin/fruits',[\App\Http\Controllers\FruitsController::class,'updateFruit'])->name('admin.fruits.update');
 });
 
 Route::middleware(\App\Http\Middleware\GuestMiddleware::class)->group(function (){
