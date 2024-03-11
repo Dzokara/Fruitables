@@ -6,11 +6,15 @@
 
         <!-- Page Heading -->
         <h1 class="h3 mt-5 text-gray-800">Fruit</h1>
-
+        @if (session('success'))
+            <div class="alert alert-success">
+                {{ session('success') }}
+            </div>
+        @endif
         <!-- DataTales Example -->
         <div class="card shadow mb-4">
             <div class="text-center mt-3">
-                <button class="btn btn-sm btn-primary px-3 py-1" style="font-size: 23px;">Add a Fruit</button>
+                <a href="{{route('admin.fruits.insert')}}"><button class="btn btn-sm btn-primary px-3 py-1" style="font-size: 23px;">Add a Fruit</button></a>
             </div>
             <div class="card-body">
                 <div class="table-responsive">
@@ -36,7 +40,7 @@
                                     @endif
                                 </td>
                                 <td class="col-4 align-middle">
-                                    <button class="btn btn-sm btn-primary px-3 py-1 updateModal" data-id="{{$row->id}}" style="font-size: 23px;">Edit</button>
+                                    <a href="{{route('admin.fruits.update',$row->id)}}"><button class="btn btn-sm btn-primary px-3 py-1" data-id="{{$row->id}}" style="font-size: 23px;">Edit</button></a>
                                     <button class="btn btn-sm btn-danger deleteModal"  data-id="{{$row->id}}" style="font-size: 23px;">Delete</button>
                                 </td>
                             </tr>
@@ -62,7 +66,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary cancelDelete" data-dismiss="modal">Cancel</button>
-                        <form id="deleteForm" method="POST" action="">
+                        <form id="deleteForm" method="POST" action="{{route('admin.fruits.delete')}}">
                             @method('delete')
                             @csrf
                             <input type="hidden" name="fruit_id" id="fruit_id" value="">
@@ -100,5 +104,4 @@
 
 @section('scripts')
     <script src="{{asset('assets/js/deleteModal.js')}}"></script>
-    <script src="{{asset('assets/js/updateModal.js')}}"></script>
 @endsection

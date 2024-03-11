@@ -14,4 +14,7 @@ class HomeController extends Controller
         $data['bestsellers'] = $model->getBestSellers();
         return view("pages.home",$data);
     }
+    public function author(){
+        return view('pages.author');
+    }
 }

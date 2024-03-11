@@ -2,7 +2,7 @@
 @section('title') Contact @endsection
 @section('description') Contact @endsection
 @section('keywords') contact, shop, online, home, best, sellers @endsection
-<!-- Single Page Header start -->
+@section('content')<!-- Single Page Header start -->
 <div class="container-fluid page-header py-5">
     <h1 class="text-center text-white display-6">Contact</h1>
     <ol class="breadcrumb justify-content-center mb-0">
@@ -87,3 +87,4 @@
     </div>
 </div>
 <!-- Contact End -->
+@endsection

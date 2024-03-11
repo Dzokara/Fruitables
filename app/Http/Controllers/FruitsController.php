@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\FruitRequest;
+use App\Http\Requests\InsertFruitRequest;
 use App\Models\Cart;
 use App\Models\Category;
 use App\Models\Fruit;
+use App\Models\Image;
 use App\Models\OrderItem;
 use App\Models\Price;
 use App\Models\Rating;
@@ -75,5 +78,68 @@ class FruitsController extends Controller
             return redirect()->back();
         }
 
+    }
+    public function updateFruit($id){
+        $model = new Fruit();
+        $model1 = new Category();
+        $data['fruit'] = $model->singleProduct($id);
+        if(!$data['fruit'])
+            return redirect()->route('404');
+        $data['categories'] =$model1->getAll();
+        return view('pages.admin.fruitUpdate',$data);
+    }
+    public function fruitUpdate(FruitRequest $request,$id){
+        try {
+            $model = new Fruit();
+            $model1 = new Price();
+            $model2 = new Image();
+            $fruit = $model->singleProduct($id);
+            $name = $request->input('name');
+            $category = $request->input('category');
+            $price = $request->input('price');
+            $img = $request->file('image');
+            $idImg = null;
+
+            if ($fruit->prices->sortByDesc('date_from')->first()->price != $price) {
+                $insert = $model1->insertPrice($id, $price);
+            }
+            if ($img) {
+                $idImg = $model2->insertImage($img);
+            }
+            $model->updateFruit($id, $name, $category, $idImg);
+
+            return redirect()->route('admin.fruits')->with('success', 'Fruit updated successfully');
+        } catch (\Exception $e) {
+            Log::error($e);
+            return redirect()->back()->with('error', 'An error occurred while updating the fruit');
+        }
+    }
+    public function insertForm(){
+        $model = new Category();
+        $data['categories'] = $model->getAll();
+        return view('pages.admin.fruitInsert',$data);
+    }
+    public function insertFruit(InsertFruitRequest $request){
+        $model= new Fruit();
+        $model1= new Price();
+        $model2= new Image();
+
+        try {
+            $name = $request->input('name');
+            $category = $request->input('category');
+            $price = $request->input('price');
+            $img = $request->file('image');
+
+            $idImg = $model2->insertImage($img);
+
+            $idFruit = $model->insertFruit($name, $category, $idImg);
+
+            $model1->insertPrice($idFruit, $price);
+
+            return redirect()->route('admin.fruits')->with('success', 'Fruit added successfully');
+        } catch (\Exception $e) {
+            Log::error($e);
+            return redirect()->back()->with('error', 'An error occurred while adding the fruit');
+        }
     }
 }

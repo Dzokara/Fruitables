@@ -17,4 +17,22 @@ class Category extends Model
     public function getAll(){
         return Category::with('fruits')->get();
     }
+    public function deleteCategory($id){
+        return Category::destroy($id);
+    }
+
+    public function getCategory($id){
+        return Category::find($id);
+    }
+
+    public function updateCategory($name,$id){
+        $category = Category::find($id);
+        $category->name=$name;
+        $category->save();
+    }
+    public function insertCategory($name){
+        return Category::create([
+            'name'=>$name
+        ]);
+    }
 }

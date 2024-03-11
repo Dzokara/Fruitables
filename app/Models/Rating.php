@@ -56,4 +56,12 @@ class Rating extends Model
     public function deleteRatingForFruit($id){
         return Rating::where('id_fruits',$id)->delete();
     }
+
+    public function deleteRating($id){
+        return Rating::where('id',$id)->delete();
+    }
+
+    public function deleteRatingForUser($id){
+        return Rating::where('id_user',$id)->delete();
+    }
 }

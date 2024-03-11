@@ -23,6 +23,7 @@ Route::post('/review',[\App\Http\Controllers\RatingController::class,"insertRati
 Route::get('/404',[\App\Http\Controllers\NotFoundController::class,'index'])->name('404');
 Route::get('/contact',[\App\Http\Controllers\ContactController::class,'index'])->name('contact');
 Route::post('/contact',[\App\Http\Controllers\ContactController::class,'insertMessage'])->name('contact.insert');
+Route::get('/author',[\App\Http\Controllers\HomeController::class,'author'])->name('author');
 
 Route::middleware(\App\Http\Middleware\AdminMiddleware::class)->group(function (){
     Route::get('/admin',[\App\Http\Controllers\AdminController::class,'index'])->name('admin.home');
@@ -33,7 +34,19 @@ Route::middleware(\App\Http\Middleware\AdminMiddleware::class)->group(function (
     Route::get('/admin/messages',[\App\Http\Controllers\AdminController::class,'messages'])->name('admin.messages');
     Route::get('/admin/users',[\App\Http\Controllers\AdminController::class,'users'])->name('admin.users');
     Route::delete('/admin/fruits',[\App\Http\Controllers\FruitsController::class,'deleteFruit'])->name('admin.fruits.delete');
-    Route::put('/admin/fruits',[\App\Http\Controllers\FruitsController::class,'updateFruit'])->name('admin.fruits.update');
+    Route::get('/admin/fruits/{id}',[\App\Http\Controllers\FruitsController::class,'updateFruit'])->name('admin.fruits.update');
+    Route::patch('/admin/fruits/{id}',[\App\Http\Controllers\FruitsController::class,'fruitUpdate'])->name('admin.fruits.update.post');
+    Route::get('/admin/fruitsInsert',[\App\Http\Controllers\FruitsController::class,'insertForm'])->name('admin.fruits.insert');
+    Route::post('/admin/fruitsInsert',[\App\Http\Controllers\FruitsController::class,'insertFruit'])->name('admin.fruits.insert.post');
+    Route::delete('/admin/categories',[\App\Http\Controllers\CategoryController::class,'deleteCategory'])->name('admin.categories.delete');
+    Route::get('/admin/categories/{id}',[\App\Http\Controllers\CategoryController::class,'updateCategory'])->name('admin.categories.update');
+    Route::patch('/admin/categories/{id}',[\App\Http\Controllers\CategoryController::class,'categoryUpdate'])->name('admin.categories.update.post');
+    Route::get('/admin/categoriesInsert',[\App\Http\Controllers\CategoryController::class,'insertForm'])->name('admin.categories.insert');
+    Route::post('/admin/categoriesInsert',[\App\Http\Controllers\CategoryController::class,'insertCategory'])->name('admin.categories.insert.post');
+    Route::delete('/admin/ratings',[\App\Http\Controllers\RatingController::class,'deleteRating'])->name('admin.rating.delete');
+    Route::delete('/admin/users',[\App\Http\Controllers\UserController::class,'deleteUser'])->name('admin.users.delete');
+    Route::get('/admin/users/{id}',[\App\Http\Controllers\UserController::class,'updateUser'])->name('admin.users.update');
+    Route::patch('/admin/users/{id}',[\App\Http\Controllers\UserController::class,'userUpdate'])->name('admin.users.update.post');
 });
 
 Route::middleware(\App\Http\Middleware\GuestMiddleware::class)->group(function (){

@@ -87,4 +87,27 @@ class User extends Model
         return $user;
     }
 
+    public function getUserById($id){
+        return User::find($id);
+    }
+
+    public function deleteUser($id){
+        return User::destroy($id);
+    }
+    public function updateUser($id,$fname,$lname,$email,$idImg,$role){
+
+        $user = User::findOrFail($id);
+
+        $user->first_name = $fname;
+        $user->last_name = $lname;
+        $user->email = $email;
+        $user->id_role = $role;
+
+        if ($idImg) {
+
+            $user->id_img = $idImg;
+        }
+
+        $user->save();
+    }
 }

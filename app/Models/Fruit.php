@@ -118,6 +118,30 @@ class Fruit extends Model
         return Fruit::where('id', $id)->delete();
     }
 
+    public function updateFruit($id,$name,$category,$image){
+        $fruit = Fruit::findOrFail($id);
 
+        $fruit->name = $name;
+        $fruit->id_category = $category;
+
+        if ($image) {
+
+            $fruit->id_img = $image;
+        }
+
+        $fruit->save();
+
+
+    }
+
+    public function insertFruit($name,$category,$image){
+        $fruit = Fruit::create([
+            'name'=>$name,
+            'id_category'=>$category,
+            'id_img'=>$image
+        ]);
+
+        return $fruit->id;
+    }
 
 }

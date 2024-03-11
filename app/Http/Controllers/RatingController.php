@@ -25,4 +25,16 @@ class RatingController extends Controller
     }
 
     }
+
+    public function deleteRating(Request $request){
+        $model = new Rating();
+        $id = $request->input('rating_id');
+
+        try {
+            $model->deleteRating($id);
+            return redirect()->route('admin.ratings')->with('success', 'Rating deleted successfully.');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'An error occurred while deleting the category.');
+        }
+    }
 }

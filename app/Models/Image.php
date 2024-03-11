@@ -19,4 +19,14 @@ class Image extends Model
     {
         return $this->hasOne(User::class, 'id_img');
     }
+    public function insertImage($image){
+        $imageName = time().'.'.$image->getClientOriginalExtension();
+        $image->move(public_path('assets/img'), $imageName);
+
+        $newImage = new Image();
+        $newImage->href = $imageName;
+        $newImage->save();
+
+        return $newImage->id;
+    }
 }
