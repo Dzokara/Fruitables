@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ActivityLog;
 use App\Models\Cart;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Response;
@@ -24,6 +25,8 @@ class CartController extends Controller
         if(!$added){
             return response()->json(['message' => 'The product is already in your cart!'], 200);
         }
+        $model1= new ActivityLog();
+        $model1->insertLog(session()->get('user')->email,2);
         return response()->json(['message' => 'Product added to cart.'],200);
 
     }
@@ -62,7 +65,8 @@ class CartController extends Controller
         }
 
         $fruits = $model->getCartForUser($idUser);
-
+        $model1 = new ActivityLog();
+        $model1->insertLog(session()->get('user')->email,3);
         return Response::json(['message' => 'Product removed from cart successfully','fruits'=>$fruits]);
 
     }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ActivityLog;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -20,6 +21,8 @@ class LoginController extends Controller
 
         if ($user) {
             $request->session()->put("user", $user);
+            $model1 = new ActivityLog();
+            $model1->insertLog(session()->get('user')->email,1);
             return redirect()->route('home');
         } else {
             return redirect()->back()->withInput()->withErrors(['badLogin' => 'Oops.. Wrong credentials.']);

@@ -47,6 +47,7 @@ Route::middleware(\App\Http\Middleware\AdminMiddleware::class)->group(function (
     Route::delete('/admin/users',[\App\Http\Controllers\UserController::class,'deleteUser'])->name('admin.users.delete');
     Route::get('/admin/users/{id}',[\App\Http\Controllers\UserController::class,'updateUser'])->name('admin.users.update');
     Route::patch('/admin/users/{id}',[\App\Http\Controllers\UserController::class,'userUpdate'])->name('admin.users.update.post');
+    Route::get('/admin/activity',[\App\Http\Controllers\AdminController::class,'activity'])->name('admin.activity');
 });
 
 Route::middleware(\App\Http\Middleware\GuestMiddleware::class)->group(function (){

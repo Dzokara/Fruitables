@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ActivityLog;
 use App\Models\Category;
 use App\Models\Fruit;
 use App\Models\Message;
@@ -66,6 +67,12 @@ class AdminController extends Controller
         $page = request('page', 1);
         $data['ratings'] = $model->getAll(true,6,$page);
         return view('pages.admin.ratings',$data);
+    }
+
+    public function activity(){
+        $model = new ActivityLog();
+        $data['activities'] = $model->getAll();
+        return view('pages.admin.activity',$data);
     }
 
 }

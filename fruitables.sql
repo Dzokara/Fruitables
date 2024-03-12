@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 12, 2024 at 12:31 AM
+-- Generation Time: Mar 12, 2024 at 10:55 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -20,6 +20,28 @@ SET time_zone = "+00:00";
 --
 -- Database: `fruitables`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `activity`
+--
+
+CREATE TABLE `activity` (
+  `id` int(11) NOT NULL,
+  `name` varchar(50) NOT NULL,
+  `created_at` datetime DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `activity`
+--
+
+INSERT INTO `activity` (`id`, `name`, `created_at`, `updated_at`) VALUES
+(1, 'Login', NULL, NULL),
+(2, 'Add to cart', NULL, NULL),
+(3, 'Remove from cart', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -150,7 +172,9 @@ INSERT INTO `img` (`id`, `href`, `created_at`, `updated_at`) VALUES
 (32, '1710199558.jpg', '2024-03-11 22:25:58', '2024-03-11 22:25:58'),
 (33, '1710199681.jpg', '2024-03-11 22:28:01', '2024-03-11 22:28:01'),
 (34, '1710199729.jpg', '2024-03-11 22:28:49', '2024-03-11 22:28:49'),
-(35, '1710199771.jpg', '2024-03-11 22:29:31', '2024-03-11 22:29:31');
+(35, '1710199771.jpg', '2024-03-11 22:29:31', '2024-03-11 22:29:31'),
+(36, '1710202099.jpg', '2024-03-11 23:08:19', '2024-03-11 23:08:19'),
+(37, '1710202134.jpg', '2024-03-11 23:08:54', '2024-03-11 23:08:54');
 
 -- --------------------------------------------------------
 
@@ -414,6 +438,22 @@ CREATE TABLE `product_cart` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Dumping data for table `product_cart`
+--
+
+INSERT INTO `product_cart` (`id`, `id_fruits`, `id_user`, `quantity`, `created_at`, `updated_at`) VALUES
+(57, 2, 1, 1, '2024-03-11 23:07:29', '2024-03-11 23:07:29'),
+(58, 12, 1, 1, '2024-03-11 23:07:38', '2024-03-11 23:07:38'),
+(59, 7, 1, 1, '2024-03-12 08:52:34', '2024-03-12 08:52:34'),
+(60, 8, 1, 1, '2024-03-12 08:52:52', '2024-03-12 08:52:52'),
+(61, 18, 1, 1, '2024-03-12 08:52:54', '2024-03-12 08:52:54'),
+(62, 19, 1, 1, '2024-03-12 08:52:55', '2024-03-12 08:52:55'),
+(63, 17, 1, 1, '2024-03-12 08:52:55', '2024-03-12 08:52:55'),
+(64, 14, 1, 1, '2024-03-12 08:52:56', '2024-03-12 08:52:56'),
+(65, 15, 1, 1, '2024-03-12 08:52:57', '2024-03-12 08:52:57'),
+(66, 16, 1, 1, '2024-03-12 08:52:57', '2024-03-12 08:52:57');
+
 -- --------------------------------------------------------
 
 --
@@ -533,12 +573,49 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`id`, `first_name`, `last_name`, `email`, `password`, `id_img`, `id_role`, `created_at`, `updated_at`) VALUES
 (1, 'Djordje', 'Jovanovic', 'ledjoxx@gmail.com', '$2y$12$RgCqb29E43x0vWrEE8UireH/FOhAAkNvq6S55.NxBetzKM1IzFeQe', 2, 2, NULL, '2024-03-07 11:53:33'),
-(9, 'Đorđ', 'Jovanović', 'aw3ron@gmail.com', '$2y$12$k580lLDYWgsar2cllGmtSO.oBK5gqPH/iERVt2XlywMoUk0PLew1q', 18, 1, '2024-03-09 09:44:11', '2024-03-11 22:01:27'),
+(9, 'Đorđ', 'Jovanović', 'aw3ron@gmail.com', '$2y$12$k580lLDYWgsar2cllGmtSO.oBK5gqPH/iERVt2XlywMoUk0PLew1q', 37, 1, '2024-03-09 09:44:11', '2024-03-11 23:08:54'),
 (10, 'Luka', 'Luka', 'luka@gmail.com', '$2y$12$CeoqZ7MUN7tngiUbcbIt8OV.2ZQt3gI0.fwAdaqKP5bhHyZFkWrBy', 11, 2, '2024-03-10 15:36:17', '2024-03-10 15:36:17');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `user_activity`
+--
+
+CREATE TABLE `user_activity` (
+  `id` int(11) NOT NULL,
+  `email` varchar(50) NOT NULL,
+  `id_activity` int(11) NOT NULL,
+  `created_at` datetime NOT NULL,
+  `updated_at` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `user_activity`
+--
+
+INSERT INTO `user_activity` (`id`, `email`, `id_activity`, `created_at`, `updated_at`) VALUES
+(1, 'ledjoxx@gmail.com', 2, '2024-03-12 09:52:34', '2024-03-12 09:52:34'),
+(2, 'ledjoxx@gmail.com', 2, '2024-03-12 09:52:52', '2024-03-12 09:52:52'),
+(3, 'ledjoxx@gmail.com', 2, '2024-03-12 09:52:54', '2024-03-12 09:52:54'),
+(4, 'ledjoxx@gmail.com', 2, '2024-03-12 09:52:55', '2024-03-12 09:52:55'),
+(5, 'ledjoxx@gmail.com', 2, '2024-03-12 09:52:55', '2024-03-12 09:52:55'),
+(6, 'ledjoxx@gmail.com', 2, '2024-03-12 09:52:56', '2024-03-12 09:52:56'),
+(7, 'ledjoxx@gmail.com', 2, '2024-03-12 09:52:57', '2024-03-12 09:52:57'),
+(8, 'ledjoxx@gmail.com', 2, '2024-03-12 09:52:57', '2024-03-12 09:52:57'),
+(9, 'ledjoxx@gmail.com', 3, '2024-03-12 09:53:55', '2024-03-12 09:53:55'),
+(10, 'ledjoxx@gmail.com', 3, '2024-03-12 09:53:56', '2024-03-12 09:53:56'),
+(11, 'ledjoxx@gmail.com', 1, '2024-03-12 09:54:45', '2024-03-12 09:54:45');
 
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `activity`
+--
+ALTER TABLE `activity`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `categories`
@@ -653,8 +730,21 @@ ALTER TABLE `users`
   ADD KEY `id_img` (`id_img`);
 
 --
+-- Indexes for table `user_activity`
+--
+ALTER TABLE `user_activity`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `id_activity` (`id_activity`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
+
+--
+-- AUTO_INCREMENT for table `activity`
+--
+ALTER TABLE `activity`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `categories`
@@ -678,7 +768,7 @@ ALTER TABLE `fruits`
 -- AUTO_INCREMENT for table `img`
 --
 ALTER TABLE `img`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
 
 --
 -- AUTO_INCREMENT for table `messages`
@@ -726,7 +816,7 @@ ALTER TABLE `prices`
 -- AUTO_INCREMENT for table `product_cart`
 --
 ALTER TABLE `product_cart`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=55;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=67;
 
 --
 -- AUTO_INCREMENT for table `rating`
@@ -745,6 +835,12 @@ ALTER TABLE `role`
 --
 ALTER TABLE `users`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+
+--
+-- AUTO_INCREMENT for table `user_activity`
+--
+ALTER TABLE `user_activity`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- Constraints for dumped tables
